@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "845899277519",
+    "project_id": "osr-montga",
+    "storage_bucket": "osr-montga.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:845899277519:android:77be6cbf085f1cce3dc3ba",
+        "android_client_info": {
+          "package_name": "com.awamer.osrMontga"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "845899277519-9op79je7m2dh64hhpj2gsblr5v76ogq6.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBD7XvdbV6fRE4v695ctmeVXflxlDhiWzA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "845899277519-9op79je7m2dh64hhpj2gsblr5v76ogq6.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
