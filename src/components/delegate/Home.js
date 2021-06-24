@@ -38,9 +38,10 @@ function Home({ navigation, route }) {
   const [screenLoader, setScreenLoader] = useState(true);
   const locFrom =
     route.params && route.params.locFrom ? route.params.locFrom : "";
+
   const [mapRegion, setMapRegion] = useState({
-    latitude: "",
-    longitude: "",
+    latitude: 24.774265,
+    longitude: 46.738586,
     latitudeDelta,
     longitudeDelta,
   });
@@ -63,8 +64,8 @@ function Home({ navigation, route }) {
       dispatch(
         updateLocation(
           lang,
-          route.params ? route.params.latitude : null,
-          route.params ? route.params.longitude : null,
+          route.params ? route.params.latitude : 24.774265,
+          route.params ? route.params.longitude : 46.738586,
           token
         )
       );
@@ -112,12 +113,8 @@ function Home({ navigation, route }) {
           // accuracy: Platform.OS == 'ios' ?Location.Accuracy.Lowest: Location.Accuracy.Low
           accuracy: Location.Accuracy.Balanced,
         });
-        console.log("latitude", latitude);
-
         userLocation = { latitude, longitude, latitudeDelta, longitudeDelta };
-
         setMapRegion(userLocation);
-        console.log("setMapRegion", mapRegion.latitude);
       }
     };
     fetchLoc();
