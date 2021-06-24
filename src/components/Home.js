@@ -60,15 +60,26 @@ function Home({ navigation, route }) {
   }, []);
 
   const _handleNotification = async (notification) => {
-    Vibration.vibrate();
-    let notificationId = await Notifications.scheduleNotificationAsync()({
-      title: notification.data.title,
-      body: notification.data.body,
-      ios: {
-        sound: true,
-        _displayInForeground: true,
-      },
+    // console.log("notification", notification);
+    // const content = notification?.request?.content;
+
+    isIOS && Vibration.vibrate();
+
+    Notifications.setNotificationHandler({
+      handleNotification: async () => ({
+        shouldShowAlert: true,
+        shouldPlaySound: true,
+        shouldSetBadge: false,
+      }),
     });
+    // !isIOS &&
+    //   (await Notifications.scheduleNotificationAsync({
+    //     content: {
+    //       title: content.title,
+    //       body: content.body,
+    //     },
+    //     trigger: null,
+    //   }));
   };
 
   function renderLoader() {
