@@ -2,11 +2,11 @@ import axios from "axios";
 import { AsyncStorage, Platform } from "react-native";
 import { Toast } from "native-base";
 import CONST from "../consts";
+import i18n from "../../locale/i18n";
 
 export const userLogin = (phone, password, deviceId, lang, navigation) => {
   return (dispatch) => {
     dispatch({ type: "login_user" });
-
     axios
       .post(CONST.url + "sign-in", {
         phone,
@@ -195,9 +195,23 @@ const handelLogin = (dispatch, data, navigation) => {
 };
 
 const loginSuccess = (dispatch, data, navigation) => {
-  AsyncStorage.setItem("token", JSON.stringify(data.data.token)).then(() =>
-    dispatch({ type: "login_success", data })
-  );
+  console.log("data, here", data?.data?.user_type);
+  if (data?.data?.user_type == 2 || data?.data?.user_type == 3) {
+    AsyncStorage.setItem("token", JSON.stringify(data.data.token)).then(() =>
+      dispatch({ type: "login_success", data })
+    );
+  } else {
+    Toast.show({
+      text: i18n.t("noCredintials"),
+      type: "danger",
+      duration: 3000,
+      textStyle: {
+        color: "white",
+        fontFamily: "flatRegular",
+        textAlign: "center",
+      },
+    });
+  }
 };
 
 const loginFailed = (dispatch, error, navigation) => {
