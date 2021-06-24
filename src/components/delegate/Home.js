@@ -101,45 +101,47 @@ function Home({ navigation, route }) {
   };
 
   useEffect(() => {
-    const fetchLoc = async () => {
-      let { status } = await Permissions.askAsync(Permissions.LOCATION);
-      let userLocation = {};
-      if (status !== "granted") {
-        alert("صلاحيات تحديد موقعك الحالي ملغاه");
-      } else {
-        const {
-          coords: { latitude, longitude },
-        } = await Location.getCurrentPositionAsync({
-          // accuracy: Platform.OS == 'ios' ?Location.Accuracy.Lowest: Location.Accuracy.Low
-          accuracy: Location.Accuracy.Balanced,
-        });
-        userLocation = { latitude, longitude, latitudeDelta, longitudeDelta };
-        setMapRegion(userLocation);
+    (async () => {
+      if (isFocused) {
+        if (locFrom == "current") {
+          setScreenLoader(true);
+          try {
+            let { status } = await Permissions.askAsync(Permissions.LOCATION);
+            let userLocation = {};
+            if (status !== "granted") {
+              alert("صلاحيات تحديد موقعك الحالي ملغاه");
+              fetchData();
+              setScreenLoader(false);
+            } else {
+              const {
+                coords: { latitude, longitude },
+              } = await Location.getCurrentPositionAsync({
+                // accuracy: Platform.OS == 'ios' ?Location.Accuracy.Lowest: Location.Accuracy.Low
+                accuracy: Location.Accuracy.Balanced,
+              });
+              userLocation = {
+                latitude,
+                longitude,
+                latitudeDelta,
+                longitudeDelta,
+              };
+              dispatch(
+                getDelegateOrders(lang, latitude, longitude, "READY", token)
+              ).then(() => {
+                dispatch(updateLocation(lang, latitude, longitude, token));
+                setScreenLoader(false);
+              });
+            }
+          } catch (error) {
+            setScreenLoader(false);
+          }
+        } else {
+          // If not From Current Location
+          fetchData();
+        }
       }
-    };
-    fetchLoc();
-    if (isFocused) {
-      if (locFrom == "current") {
-        setScreenLoader(true);
-        dispatch(
-          getDelegateOrders(
-            lang,
-            mapRegion.latitude,
-            mapRegion.longitude,
-            "READY",
-            token
-          )
-        ).then(() => {
-          dispatch(
-            updateLocation(lang, mapRegion.latitude, mapRegion.longitude, token)
-          );
-          setScreenLoader(false);
-        });
-      } else {
-        fetchData();
-      }
-    }
-  }, [isFocused, route.params?.latitude, mapRegion.latitude]);
+    })();
+  }, [isFocused]);
 
   function Item({ name, image, date, orderNum, type, index }) {
     return (
