@@ -3,7 +3,7 @@ import { reactotronRedux } from "reactotron-redux";
 
 const reactotron = Reactotron.configure({
   name: "harby",
-  host: "10.0.0.25",
+  host: "192.168.1.13",
   port: 9090,
 })
   .use(reactotronRedux())

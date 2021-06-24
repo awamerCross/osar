@@ -46,6 +46,7 @@
         "WRITE_EXTERNAL_STORAGE"],
       "googleServicesFile": "./google-services.json",
       "useNextNotificationsApi": true,
+      
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBQu-aDY--uY14s4U3ok-XwwqhsnhLFe5Q"

@@ -126,18 +126,21 @@ export const resetPassword = (password, code, token, lang, navigation) => {
         Authorization: "Bearer " + token,
       },
     }).then((response) => {
-      if (response.data.success) navigation.navigate("login");
-
-      Toast.show({
-        text: response.data.message,
-        type: response.data.success ? "success" : "danger",
-        duration: 3000,
-        textStyle: {
-          color: "white",
-          fontFamily: "flatRegular",
-          textAlign: "center",
-        },
-      });
+      console.log("response", response.data.message);
+      if (response.data.success) {
+        navigation.navigate("login");
+      } else {
+        Toast.show({
+          text: response?.data?.message,
+          type: response.data.success ? "success" : "danger",
+          duration: 3000,
+          textStyle: {
+            color: "white",
+            fontFamily: "flatRegular",
+            textAlign: "center",
+          },
+        });
+      }
     });
   };
 };
