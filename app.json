@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": 3,
+      "buildNumber": "3",
       "bundleIdentifier": "com.awamer.osrMontga",
       "userInterfaceStyle": "light",
       "infoPlist": {
