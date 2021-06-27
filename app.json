@@ -2,7 +2,7 @@
   "expo": {
     "name": "أسر منتجة",
     "slug": "Osr-montga",
-    "version": "0.0.3",
+    "version": "7.0.1",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
@@ -18,7 +18,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "buildNumber": "3",
+      "buildNumber": "7",
       "bundleIdentifier": "com.awamer.osrMontga",
       "userInterfaceStyle": "light",
       "infoPlist": {
