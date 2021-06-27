@@ -31,6 +31,7 @@ import {
   changePass,
   updateProfile,
   getProviders,
+  userCommentsAction,
 } from "../../actions";
 import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
@@ -47,6 +48,7 @@ function Profile({ navigation, route }) {
   const user = useSelector((state) =>
     state.auth.user ? state.auth.user.data : {}
   );
+  const { userRates } = useSelector((state) => state.profile);
   const [active, setActive] = useState(0);
 
   const userData = useSelector((state) => state.profile.user);
@@ -107,6 +109,8 @@ function Profile({ navigation, route }) {
     },
   ];
 
+  console.log("userRates::::::", userRates);
+
   const dispatch = useDispatch();
 
   function fetchData() {
@@ -116,6 +120,10 @@ function Profile({ navigation, route }) {
       setScreenLoader(false);
     });
   }
+
+  useEffect(() => {
+    dispatch(userCommentsAction());
+  }, []);
 
   useEffect(() => {
     fetchData();
@@ -401,7 +409,7 @@ function Profile({ navigation, route }) {
             { overflow: "hidden", paddingBottom: 70 },
           ]}
         >
-          {/* <View
+          <View
             style={[
               styles.directionRowSpace,
               { borderBottomWidth: 1, borderBottomColor: "#ddd" },
@@ -455,7 +463,7 @@ function Profile({ navigation, route }) {
                 {i18n.t("clientsComments")}
               </Text>
             </TouchableOpacity>
-          </View> */}
+          </View>
 
           {
             active === 0 ? (
@@ -862,15 +870,15 @@ function Profile({ navigation, route }) {
               // providers && (providers).length > 0?
               <View style={[styles.paddingHorizontal_20]}>
                 <FlatList
-                  data={comments}
+                  data={userRates}
                   horizontal={false}
                   showsVerticalScrollIndicator={false}
                   renderItem={({ item, index }) => (
                     <CommentItem
                       id={item.id}
-                      name={item.name}
-                      image={item.image}
-                      desc={item.desc}
+                      name={item?.user?.name}
+                      image={item?.user?.avatar}
+                      desc={item.comment}
                       rate={item.rate}
                       index={index}
                     />
