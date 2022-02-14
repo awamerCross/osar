@@ -18,7 +18,7 @@ import Header from "../common/Header";
 import COLORS from "../consts/colors";
 import { useIsFocused } from "@react-navigation/native";
 import StarRating from "react-native-star-rating";
-import * as Permissions from "expo-permissions";
+
 import * as Location from "expo-location";
 import axios from "axios";
 import MapView from "react-native-maps";
@@ -85,7 +85,7 @@ function ResultBySearch({ navigation, route }) {
     setScreenLoader(true);
     // dispatch(getProviders(lang , null, false , null , null , homeSearch)).then(() => setScreenLoader(false));
 
-    let { status } = await Permissions.askAsync(Permissions.LOCATION);
+    let { status } = await Location.requestForegroundPermissionsAsync();
     let userLocation = {};
     if (status !== "granted") {
       alert("صلاحيات تحديد موقعك الحالي ملغاه");

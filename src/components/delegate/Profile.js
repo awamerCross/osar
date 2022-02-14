@@ -33,7 +33,6 @@ import {
   getProviders,
   userCommentsAction,
 } from "../../actions";
-import * as Permissions from "expo-permissions";
 import * as ImagePicker from "expo-image-picker";
 import StarRating from "react-native-star-rating";
 
@@ -168,8 +167,7 @@ function Profile({ navigation, route }) {
   }
 
   const askPermissionsAsync = async () => {
-    await Permissions.askAsync(Permissions.CAMERA);
-    await Permissions.askAsync(Permissions.CAMERA_ROLL);
+    await ImagePicker.requestMediaLibraryPermissionsAsync();
   };
 
   const _pickImage = async () => {
