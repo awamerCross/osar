@@ -162,6 +162,9 @@ function Home({ navigation, route }) {
             placeholderTextColor={"#fff"}
             onChangeText={(search) => setSearch(search)}
             value={search}
+            onSubmitEditing={() =>
+              navigation.navigate("resultBySearch", { search })
+            }
           />
 
           <TouchableOpacity
